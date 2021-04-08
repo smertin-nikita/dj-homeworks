@@ -12,6 +12,8 @@ counter_click = Counter()
 
 def index(request):
     # Реализуйте логику подсчета количества переходов с лендига по GET параметру from-landing
+    from_landing = request.GET.get('from_landing')
+    counter_click[from_landing] += 1
     return render(request, 'index.html')
 
 
@@ -21,8 +23,10 @@ def landing(request, ab_test_arg):
     # который может принимать значения original и test
     # Так же реализуйте логику подсчета количества показов
     if ab_test_arg == 'original':
+        counter_show[ab_test_arg] += 1
         return render(request, 'landing.html')
     elif ab_test_arg == 'test':
+        counter_show[ab_test_arg] += 1
         return render(request, 'landing_alternate.html')
 
 
