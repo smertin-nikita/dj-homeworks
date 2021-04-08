@@ -15,7 +15,7 @@ def index(request):
     return render(request, 'index.html')
 
 
-def landing(request):
+def landing(request, ab_test_arg):
     # Реализуйте дополнительное отображение по шаблону app/landing_alternate.html
     # в зависимости от GET параметра ab-test-arg
     # который может принимать значения original и test
