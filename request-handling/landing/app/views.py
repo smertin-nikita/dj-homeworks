@@ -20,7 +20,10 @@ def landing(request, ab_test_arg):
     # в зависимости от GET параметра ab-test-arg
     # который может принимать значения original и test
     # Так же реализуйте логику подсчета количества показов
-    return render(request, 'landing.html')
+    if ab_test_arg == 'original':
+        return render(request, 'landing.html')
+    elif ab_test_arg == 'test':
+        return render(request, 'landing_alternate.html')
 
 
 def stats(request):

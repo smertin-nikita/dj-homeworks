@@ -1,12 +1,10 @@
-from django.urls import path, register_converter
+from django.urls import path, register_converter, re_path
 
 from app.views import landing, stats, index
-from app.converters import LandVersionConverter
 
-register_converter(LandVersionConverter, 'land_version')
 
 urlpatterns = [
     path('', index, name='index'),
-    path('landing/<land_version:ab_test_arg>/', landing, name='landing'),
+    re_path(r'^landing/(?P<ab_test_arg>test|original)/', landing, name='landing'),
     path('stats/', stats, name='stats'),
 ]
