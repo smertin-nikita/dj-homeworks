@@ -1,6 +1,11 @@
 import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
+
+def index(request):
+    return redirect(reverse('file_list'))
 
 
 def file_list(request):
