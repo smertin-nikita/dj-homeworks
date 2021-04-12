@@ -29,8 +29,6 @@ def file_list(request, date=None):
         else:
             files.append(file_info)
 
-
-    # Реализуйте алгоритм подготавливающий контекстные данные для шаблона по примеру:
     context = {
         'files': files,
         'date': date
@@ -40,10 +38,14 @@ def file_list(request, date=None):
 
 
 def file_content(request, name):
-    # Реализуйте алгоритм подготавливающий контекстные данные для шаблона по примеру:
+    template_name = 'file_content.html'
+
+    with open(os.path.join(settings.FILES_PATH, name)) as f:
+        file_contents = ''.join(f.readlines())
+
     return render(
         request,
-        'file_content.html',
-        context={'file_name': 'file_name_1.txt', 'file_content': 'File content!'}
+        template_name,
+        context={'file_name': name, 'file_content': file_contents}
     )
 

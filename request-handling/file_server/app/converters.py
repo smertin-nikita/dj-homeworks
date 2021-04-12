@@ -1,5 +1,8 @@
 import os
 from datetime import datetime
+
+from django.urls.converters import StringConverter
+
 from app import settings
 
 
@@ -14,13 +17,13 @@ class DatetimeConverter:
         return value.strftime(self.format)
 
 
-class FilenameConverter:
-    regex = r'[\w.]+'
+class FilenameConverter(StringConverter):
+
     # если знаем что все файлы называются server.[0-9]{2} можно сделать регулярку
     # regex = r'server\.[0-9]{2}'
 
     def to_python(self, value: str) -> str:
-        if os.path.exists(os.path.join(settings.FILES_PATH, 'files')):
+        if os.path.exists(os.path.join(settings.FILES_PATH, value)):
             return value
         else:
             raise ValueError("File doesn't exist")
