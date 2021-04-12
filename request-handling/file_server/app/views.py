@@ -11,7 +11,7 @@ def index(request):
     return redirect(reverse('file_list'))
 
 
-def file_list(request):
+def file_list(request, date=None):
     template_name = 'index.html'
 
     files = []
@@ -23,13 +23,17 @@ def file_list(request):
             'ctime': datetime.datetime.fromtimestamp(os.path.getctime(file_path)),
             'mtime': datetime.datetime.fromtimestamp(os.path.getmtime(file_path)),
         }
+        if date:
+            if date.date() == file_info['ctime'].date():
+                files.append(file_info)
+        else:
+            files.append(file_info)
 
-        files.append(file_info)
 
     # Реализуйте алгоритм подготавливающий контекстные данные для шаблона по примеру:
     context = {
         'files': files,
-        'date': datetime.date(2018, 1, 1)  # Этот параметр необязательный
+        'date': date
     }
 
     return render(request, template_name, context)
