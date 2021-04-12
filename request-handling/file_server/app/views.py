@@ -24,7 +24,7 @@ def file_list(request, date=None):
             'mtime': datetime.datetime.fromtimestamp(os.path.getmtime(file_path)),
         }
         if date:
-            if date.date() == file_info['ctime'].date():
+            if date.date() == file_info['ctime'].date() or date.date() == file_info['mtime'].date():
                 files.append(file_info)
         else:
             files.append(file_info)
