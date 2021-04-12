@@ -1,29 +1,51 @@
 import datetime
+import os
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+
+from app import settings
 
 
-def file_list(request):
+def index(request):
+    return redirect(reverse('file_list'))
+
+
+def file_list(request, date=None):
     template_name = 'index.html'
-    
-    # Реализуйте алгоритм подготавливающий контекстные данные для шаблона по примеру:
+
+    files = []
+    for file_name in os.listdir(settings.FILES_PATH):
+        file_path = os.path.join(settings.FILES_PATH, file_name)
+
+        file_info = {
+            'name': file_name,
+            'ctime': datetime.datetime.fromtimestamp(os.path.getctime(file_path)),
+            'mtime': datetime.datetime.fromtimestamp(os.path.getmtime(file_path)),
+        }
+        if date:
+            if date.date() == file_info['ctime'].date() or date.date() == file_info['mtime'].date():
+                files.append(file_info)
+        else:
+            files.append(file_info)
+
     context = {
-        'files': [
-            {'name': 'file_name_1.txt',
-             'ctime': datetime.datetime(2018, 1, 1),
-             'mtime': datetime.datetime(2018, 1, 2)}
-        ],
-        'date': datetime.date(2018, 1, 1)  # Этот параметр необязательный
+        'files': files,
+        'date': date
     }
 
     return render(request, template_name, context)
 
 
 def file_content(request, name):
-    # Реализуйте алгоритм подготавливающий контекстные данные для шаблона по примеру:
+    template_name = 'file_content.html'
+
+    with open(os.path.join(settings.FILES_PATH, name)) as f:
+        file_contents = ''.join(f.readlines())
+
     return render(
         request,
-        'file_content.html',
-        context={'file_name': 'file_name_1.txt', 'file_content': 'File content!'}
+        template_name,
+        context={'file_name': name, 'file_content': file_contents}
     )
 
