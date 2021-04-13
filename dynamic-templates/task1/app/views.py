@@ -12,6 +12,6 @@ def inflation_view(request):
     # чтение csv-файла и заполнение контекста
     with open(os.path.join(settings.BASE_DIR, 'inflation_russia.csv'), encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
-        context = [item for item in reader]
+        context = list(reader)
 
     return render(request, template_name, {'keys': context[0], 'content': context})
