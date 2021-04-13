@@ -1,4 +1,4 @@
-<!DOCTYPE html>{% load static %}
+<!DOCTYPE html>
 <html>
   <head>
     <meta charset="UTF-8">
@@ -11,15 +11,32 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
-
+  {% load color_filter %}
   <body>
     {% block content %}
       <div class="row">
         <h1 class="col s12">Инфляция в России</h1>
         <div class="col s12 m8">
-        {%for k in keys %}
-          <div class="col s1">k</div>
-        {%endfor %}
+          <table>
+            <thead>
+              <tr>
+                {% for key in keys %}
+                <th>{{ key }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in content %}
+              <tr>
+                {% for key, value in row.items %}
+                <td class="{{value|color:key}}">
+                  {{ value|default:"-" }}
+                </td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div>
       </div>
     {% endblock %}
