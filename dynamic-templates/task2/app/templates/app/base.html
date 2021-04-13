@@ -1,4 +1,5 @@
-<!DOCTYPE html>{% load static %}
+<!DOCTYPE html>
+{% load static %}
 <html>
   <head>
     <meta charset="UTF-8">
@@ -13,16 +14,6 @@
   </head>
   <body>
     {% block header %}
-    <nav class="row">
-      <div class="nav-wrapper col s12">
-        <a href="{% url 'home' %}" class="brand-logo">Компьютеры</a>
-        <ul class="right hide-on-med-and-down">
-          <li><a href="{% url 'examples' %}">Примеры</a></li>
-          <li><a href="{% url 'contacts' %}">Контакты</a></li>
-          <li><a href="{% url 'about' %}">О проекте</a></li>
-        </ul>
-      </div>
-    </nav>
     {% endblock %}
 
     {% block content %}

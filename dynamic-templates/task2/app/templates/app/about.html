@@ -1,5 +1,10 @@
 {% extends "app/base.html" %}
 {% load static %}
+{% load app_tags %}
+
+{% block header %}
+{% show_menu "about" %}
+{% endblock header %}
 
 {% block content %}
 <div class="row">
