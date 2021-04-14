@@ -51,4 +51,10 @@ def format_num_comments(value):
         return '50+'
 
 
+@register.filter
+def format_selftext(value, count):
+    text = value.split(' ')
+    return ' '.join(text[:count]) + ' ... ' + ' '.join(text[-count:])
+
+
 
