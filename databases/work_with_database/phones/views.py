@@ -4,15 +4,21 @@ from phones.models import Phone
 
 
 def show_catalog(request):
+    template = 'catalog.html'
     sort = request.GET.get('sort')
+
+    phones = list(Phone.objects.all())
+
     if sort:
         if sort == 'name':
-            pass
+            phones.sort(key=lambda phone: phone.name)
         if sort == 'min_price':
-            pass
+            phones.sort(key=lambda phone: phone.price)
+        if sort == 'max_price':
+            phones.sort(key=lambda phone: phone.price, reverse=True)
 
-    template = 'catalog.html'
-    context = {'phones': list(Phone.objects.all())}
+    context = {'phones': phones}
+
     return render(request, template, context)
 
 
