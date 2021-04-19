@@ -13,7 +13,9 @@
         </div>
 
         <div class="content">
-            {# Здесь должен отображаться каталог с телефонами #}
+            {? for phone in phones ?}
+            {% include 'phone.html' with phone=phone  %}
+            {? endfor ?}
         </div>
     </div>
 {% endblock %}
