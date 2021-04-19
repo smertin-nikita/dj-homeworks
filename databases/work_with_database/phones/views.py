@@ -4,6 +4,13 @@ from phones.models import Phone
 
 
 def show_catalog(request):
+    sort = request.GET.get('sort')
+    if sort:
+        if sort == 'name':
+            pass
+        if sort == 'min_price':
+            pass
+
     template = 'catalog.html'
     context = {'phones': list(Phone.objects.all())}
     return render(request, template, context)

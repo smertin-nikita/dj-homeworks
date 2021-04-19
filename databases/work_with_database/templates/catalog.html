@@ -9,7 +9,17 @@
         </div>
 
         <div class="sort-block">
-            {# Здесь должен быть раздел с сортировкой #}
+            <ul class="nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{? url 'catalog' sort='name' ?}">названию</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{? url 'catalog' sort='min_price' ?}">начиная с дешевых</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{? url 'catalog' sort='max_price' ?}">начиная с дорогих</a>
+              </li>
+            </ul>
         </div>
 
         <div class="content">
