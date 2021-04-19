@@ -1,6 +1,11 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
 
 from phones.models import Phone
+
+
+def index(request):
+    return redirect(reverse('catalog'))
 
 
 def show_catalog(request):
@@ -8,14 +13,13 @@ def show_catalog(request):
     sort = request.GET.get('sort')
 
     phones = list(Phone.objects.all())
-
     if sort:
         if sort == 'name':
-            phones.sort(key=lambda phone: phone.name)
+            phones = list(Phone.objects.order_by('name'))
         if sort == 'min_price':
-            phones.sort(key=lambda phone: phone.price)
+            phones = list(Phone.objects.order_by('price'))
         if sort == 'max_price':
-            phones.sort(key=lambda phone: phone.price, reverse=True)
+            phones = list(Phone.objects.order_by('-price'))
 
     context = {'phones': phones}
 
