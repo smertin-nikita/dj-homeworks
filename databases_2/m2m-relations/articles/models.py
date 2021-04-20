@@ -20,9 +20,10 @@ class Article(models.Model):
     published_at = models.DateTimeField(verbose_name='Дата публикации')
     image = models.ImageField(null=True, blank=True, verbose_name='Изображение',)
 
-    tags = models.ManyToManyRel(
+    tags = models.ManyToManyField(
         Tag,
-        through='ArticleTag'
+        through='ArticleTag',
+        related_name='articles'
     )
 
     class Meta:
