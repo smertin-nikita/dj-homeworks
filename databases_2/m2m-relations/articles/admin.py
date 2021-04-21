@@ -9,15 +9,17 @@ admin.site.register(Tag)
 
 class ArticleTagInlineFormset(BaseInlineFormSet):
     def clean(self):
+        major_exist = 0
         for form in self.forms:
-            # В form.cleaned_data будет словарь с данными
-            # каждой отдельной формы, которые вы можете проверить
-            print(form.cleaned_data)
-            # вызовом исключения ValidationError можно указать админке о наличие ошибки
-            # таким образом объект не будет сохранен,
-            # а пользователю выведется соответствующее сообщение об ошибке
+            if form.cleaned_data.get('major', False):
+                major_exist += 1
+
+            if major_exist > 1:
+                raise ValidationError('Основным может быть только один раздел')
+
+        if major_exist == 0:
             raise ValidationError('Укажите основной раздел')
-            raise ValidationError('Основным может быть только один раздел')
+
         return super().clean()  # вызываем базовый код переопределяемого метода
 
 
