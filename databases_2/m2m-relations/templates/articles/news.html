@@ -13,8 +13,8 @@
           <a href="#">{{ article.title }}</a>
         </h4>
         <p class="card-text">{{ article.text }}</p>
-        {% for tag in article.tags.all %}
-          <span class="badge {% if tag.major %}badge-primary{% else %}badge-secondary{% endif %}">{{ tag.title }}</span>
+        {% for topic in article.articletag_set.all %}
+          <span class="badge {% if topic.major %}badge-primary{% else %}badge-secondary{% endif %}">{{ topic.tag.title }}</span>
         {% endfor %}
       </div>
     </div>
