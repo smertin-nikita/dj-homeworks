@@ -7,9 +7,13 @@ class TeacherStudentInline(admin.TabularInline):
     model = Student.teachers.through
 
 
+class StudentTeacherInline(admin.TabularInline):
+    model = Teacher.students.through
+
+
 @admin.register(Student)
 class StudentAdmin(admin.ModelAdmin):
-    pass
+    inlines = [StudentTeacherInline]
 
 
 @admin.register(Teacher)
