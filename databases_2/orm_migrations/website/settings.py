@@ -41,6 +41,16 @@ INSTALLED_APPS = [
     'school',
 ]
 
+if DEBUG:
+    import mimetypes
+    mimetypes.add_type("image/png", ".png", True)
+
+if DEBUG:
+    INSTALLED_APPS += [
+        'debug_toolbar'
+    ]
+
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -50,6 +60,12 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    MIDDLEWARE = [
+        'debug_toolbar.middleware.DebugToolbarMiddleware'
+    ] + MIDDLEWARE
+
 
 ROOT_URLCONF = 'website.urls'
 
@@ -125,4 +141,29 @@ try:
     from .settings_local import *
 except ImportError:
     pass
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'loggers': {
+        'django.db': {
+            'handlers': ['console'],
+            'level': 'DEBUG',
+            'propagate': False,
+        },
+    },
+}
+
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
+
+
 
