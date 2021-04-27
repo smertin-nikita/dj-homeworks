@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+from measurements import settings_local
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -20,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'j$1(ig@@#+2-ismgv-!xayzd^g*9ryzf_h(pfk6%p18-5$yrl^'
+SECRET_KEY = settings_local.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -77,14 +79,7 @@ WSGI_APPLICATION = 'simple_crud.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'netology_simple_crud',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
+DATABASES = settings_local.DATABASES
 
 
 # Password validation
