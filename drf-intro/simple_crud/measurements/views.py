@@ -1,7 +1,7 @@
 from rest_framework.viewsets import ModelViewSet
 
 from measurements.models import Project
-from serializers import ProjectSerializer
+from measurements.serializers import ProjectSerializer
 
 
 class ProjectViewSet(ModelViewSet):
