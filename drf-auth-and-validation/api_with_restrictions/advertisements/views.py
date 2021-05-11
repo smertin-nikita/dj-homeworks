@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import permissions
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly, AND, OR
 from rest_framework.viewsets import ModelViewSet
@@ -46,6 +47,13 @@ class AdvertisementViewSet(ModelViewSet):
     queryset = Advertisement.objects.all()
     serializer_class = AdvertisementSerializer
     filterset_class = AdvertisementFilter
+
+    def get_queryset(self):
+        """queryset с черновиками только для создателя"""
+        user = self.request.user
+        return Advertisement.objects.filter(Q(creator=user) & Q(draft=True)) | Advertisement.objects.filter(draft=False)
+
+
 
     def get_permissions(self):
         """Получение прав для действий."""
