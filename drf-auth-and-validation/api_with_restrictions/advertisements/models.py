@@ -18,6 +18,9 @@ class Advertisement(models.Model):
         choices=AdvertisementStatusChoices.choices,
         default=AdvertisementStatusChoices.OPEN
     )
+
+    favorites = models.BooleanField(default=False)
+
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
