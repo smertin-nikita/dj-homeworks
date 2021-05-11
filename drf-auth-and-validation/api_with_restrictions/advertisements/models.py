@@ -19,7 +19,7 @@ class Advertisement(models.Model):
         default=AdvertisementStatusChoices.OPEN
     )
 
-    favorites = models.BooleanField(default=False)
+    draft = models.BooleanField(default=False)
 
     creator = models.ForeignKey(
         settings.AUTH_USER_MODEL,
