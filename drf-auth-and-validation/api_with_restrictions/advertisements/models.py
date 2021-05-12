@@ -26,9 +26,16 @@ class Advertisement(models.Model):
         on_delete=models.CASCADE,
         related_name='advertisements'
     )
+
+    users = models.ManyToManyField(
+        settings.AUTH_USER_MODEL,
+        related_name='favorites')
+
     created_at = models.DateTimeField(
         auto_now_add=True
     )
     updated_at = models.DateTimeField(
         auto_now=True
     )
+
+
