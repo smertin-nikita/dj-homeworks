@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.db.models import Q
 
 
 class AdvertisementStatusChoices(models.TextChoices):
@@ -29,6 +30,7 @@ class Advertisement(models.Model):
 
     users = models.ManyToManyField(
         settings.AUTH_USER_MODEL,
+        through='UsersAdvertisements',
         related_name='favorites')
 
     created_at = models.DateTimeField(
@@ -38,4 +40,27 @@ class Advertisement(models.Model):
         auto_now=True
     )
 
+
+class UsersAdvertisements:
+
+    class Meta:
+        constraints = [
+            models.CheckConstraint(
+                check=~Q('advertisement__creator' == 'user'),
+                name='no_creator',
+            ),
+        ]
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        blank=False,
+        null=False
+    )
+    advertisements = models.ForeignKey(
+        Advertisement,
+        on_delete=models.CASCADE,
+        blank=False,
+        null=False
+    )
 
