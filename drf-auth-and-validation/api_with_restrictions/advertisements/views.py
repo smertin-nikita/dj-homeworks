@@ -22,7 +22,6 @@ class AdvertisementViewSet(ModelViewSet):
         user = self.request.user
         return Advertisement.objects.filter(Q(creator=user) & Q(draft=True)) | Advertisement.objects.filter(draft=False)
 
-
     def get_permissions(self):
         """Получение прав для действий."""
         if self.action in ["create", "update", "partial_update", "destroy"]:
