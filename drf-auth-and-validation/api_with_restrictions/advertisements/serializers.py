@@ -45,7 +45,7 @@ class AdvertisementSerializer(serializers.ModelSerializer):
         if data.get('status', AdvertisementStatusChoices.OPEN) == AdvertisementStatusChoices.OPEN:
             creator = self.context['request'].user
             advertisements = creator.advertisements.filter(status=AdvertisementStatusChoices.OPEN)
-            if len(advertisements) >= 10:
+            if advertisements.count() >= 10:
                 raise serializers.ValidationError("Должно быть не больше 10 открытых объявлений.")
 
         return data
