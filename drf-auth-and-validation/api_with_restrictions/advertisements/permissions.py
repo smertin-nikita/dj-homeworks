@@ -12,7 +12,6 @@ class IsStaffOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
 
-        # Instance must have an attribute named `creator`.
         return request.user.is_staff
 
 

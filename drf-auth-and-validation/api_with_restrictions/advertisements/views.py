@@ -3,7 +3,7 @@ from rest_framework.permissions import IsAuthenticated, OR
 from rest_framework.viewsets import ModelViewSet
 
 from advertisements.filters import AdvertisementFilter
-from advertisements.models import Advertisement
+from advertisements.models import Advertisement, AdvertisementStatusChoices
 from advertisements.permissions import IsStaffOrReadOnly, IsOwnerOrReadOnly
 from advertisements.serializers import AdvertisementSerializer
 
@@ -20,7 +20,7 @@ class AdvertisementViewSet(ModelViewSet):
     def get_queryset(self):
         """queryset с черновиками только для создателя"""
         user = self.request.user
-        return Advertisement.objects.filter(Q(creator=user) & Q(draft=True)) | Advertisement.objects.filter(draft=False)
+        return Advertisement.objects.all().exclude(~Q(creator=user) & Q(status=AdvertisementStatusChoices.DRAFT))
 
     def get_permissions(self):
         """Получение прав для действий."""
