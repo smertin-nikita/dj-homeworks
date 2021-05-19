@@ -40,7 +40,6 @@ class AdvertisementSerializer(serializers.ModelSerializer):
     def validate(self, data):
         """Метод для валидации. Вызывается при создании и обновлении."""
 
-        # TODO: добавьте требуемую валидацию
         if data.get('status', AdvertisementStatusChoices.OPEN) == AdvertisementStatusChoices.OPEN:
             creator = self.context['request'].user
             advertisements = creator.advertisements.filter(status=AdvertisementStatusChoices.OPEN)
